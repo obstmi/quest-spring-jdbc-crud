@@ -16,6 +16,8 @@ public class SchoolController {
 
     @GetMapping("/schools")
     public String getAll(Model model) {
+    	
+    	System.out.println("Bin im SchoolController, Methode getAll()");
 
         model.addAttribute("schools", repository.findAll());
 
@@ -25,10 +27,17 @@ public class SchoolController {
     @GetMapping("/school")
     public String getSchool(Model model,
                             @RequestParam(required = false) Long id) {
+    	
+    	System.out.println("Bin im SchoolController, Methode getSchool()");
 
-        School school = new School();
+
+        //School school = new School();
+    	//..kleine Variation:
+    	School school;
         if (id != null) {
             school = repository.findById(id);
+        } else {
+        	school = new School();
         }
         model.addAttribute("school", school);
 
@@ -37,6 +46,9 @@ public class SchoolController {
 
     @PostMapping("/school")
     public String postSchool(@ModelAttribute School school) {
+    	
+    	System.out.println("Bin im SchoolController, Methode postSchool()");
+
 
         if (school.getId() != null) {
             repository.update(school);
@@ -48,6 +60,9 @@ public class SchoolController {
 
     @GetMapping("/school/delete")
     public String deleteSchool(@RequestParam Long id) {
+    	
+    	System.out.println("Bin im SchoolController, Methode deleteSchool()");
+
 
         repository.deleteById(id);
 
